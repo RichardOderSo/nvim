@@ -14,18 +14,21 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
-
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = { 'pyright','clangd', "cmake"},
+  ensure_installed = {'lua_ls','pyright','clangd', "cmake", 'rust_analyzer', 'tsserver', 'jdtls'},
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()
       local lua_opts = lsp_zero.nvim_lua_ls()
       require('lspconfig').lua_ls.setup(lua_opts)
     end,
+    jdtls = lsp_zero.noop,
   }
 })
+
+--Dart
+require('lspconfig').dartls.setup{};
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}

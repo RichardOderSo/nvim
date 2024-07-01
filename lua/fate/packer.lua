@@ -13,7 +13,7 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  use({ 'rose-pine/neovim', as = 'rose-pine', 
+  use({ 'rose-pine/neovim', as = 'rose-pine',
 	config = function()
 		--vim.cmd('colorscheme rose-pine')
 	end
@@ -23,6 +23,7 @@ return require('packer').startup(function(use)
   use("ThePrimeagen/harpoon")
   use ("mbbill/undotree" )
   use ("tpope/vim-fugitive" )
+  use ("ThePrimeagen/vim-be-good")
 
 
   use {
@@ -35,11 +36,19 @@ return require('packer').startup(function(use)
 
 		  -- LSP Support
 		  {'neovim/nvim-lspconfig'},
+      {'mfussenegger/nvim-jdtls'},
 		  -- Autocompletion
 		  {'hrsh7th/nvim-cmp'},
 		  {'hrsh7th/cmp-nvim-lsp'},
 		  {'L3MON4D3/LuaSnip'},
+
 	  }
   }
-  
-  end)
+  use({
+    "epwalsh/obsidian.nvim",
+    tag = "*",  -- recommended, use latest release instead of latest commit
+    requires = {
+      -- Required.
+      "nvim-lua/plenary.nvim",
+    }})
+end)
