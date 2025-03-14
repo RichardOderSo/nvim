@@ -16,7 +16,7 @@ lsp_zero.on_attach(function(client, bufnr)
 end)
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'jdtls','lua_ls','pyright','clangd', "cmake", 'rust_analyzer', 'tsserver',},
+  ensure_installed = {'jdtls','lua_ls','pyright','clangd', "cmake", 'rust_analyzer', 'tsserver', 'html'},
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()
