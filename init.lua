@@ -1,1 +1,1 @@
-require("fate")
+require("lua.init")
