@@ -4,7 +4,7 @@ return {
     dependencies = {
         "stevearc/conform.nvim",
         "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -34,30 +34,8 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
-                "gopls",
+                "clangd",
             },
-            handlers = {
-                function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {
-                        capabilities = capabilities
-                    }
-                end,
-
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = { version = "Lua 5.1" },
-                                diagnostics = {
-                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        }
-                    }
-                end,
-            }
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -93,6 +71,16 @@ return {
                 header = "",
                 prefix = "",
             },
+        })
+        vim.api.nvim_create_autocmd('LspAttach', {
+            group = clangd_augroup,
+            callback = function(event)
+                local client = vim.lsp.get_client_by_id(event.data.client_id)
+                if client and client.name == 'clangd' then
+                    vim.keymap.set('n', '<leader>h', '<cmd>LspClangdSwitchSourceHeader<CR>',
+                        { buffer = event.buf, desc = 'LSP: Switch Header/Source' })
+                end
+            end,
         })
     end
 }
