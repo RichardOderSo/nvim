@@ -1,3 +1,5 @@
+vim.opt.rtp:append("~/.config/nvim/lua/plugins/ftplugin/")
+
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20i"
 
 vim.opt.nu = true
